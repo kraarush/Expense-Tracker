@@ -6,9 +6,8 @@ import refineUser from "../utils/refineUser.js";
 
 export const register = async (req, res) => {
     try {
-
+        
         let { fullname, email, password } = req.body;
-
 
         fullname = fullname?.trim() || "";
         email = validator.normalizeEmail(email?.trim() || "");
