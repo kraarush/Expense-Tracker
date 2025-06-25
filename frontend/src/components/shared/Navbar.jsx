@@ -153,28 +153,19 @@ const Navbar = () => {
           }
         >
           <h1 className="text-3xl font-bold w-full m-4">
-            Opportune<span className="text-[#F83002]">X</span>
+            <span className="text-[#1248b2]">Ex</span>pensio
           </h1>
 
           <div className="flex flex-col gap-4 items-center p-4">
             <Avatar className="w-14 h-14">
-              {user?.profile?.profilePhoto ? (
-                <AvatarImage
-                  src={user?.profile?.profilePhoto}
-                  alt="Profile_pic"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-full">
-                  <User className="w-10 h-10 text-gray-500" />
-                </div>
-              )}
+              <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-full">
+                <User className="w-10 h-10 text-gray-500" />
+              </div>
             </Avatar>
             <div className="flex flex-col">
               <h1 className="font-medium text-lg">
                 {user?.fullname || "username"}
               </h1>
-              <p>{user?.profile?.bio || ""}</p>
             </div>
           </div>
 
@@ -188,24 +179,17 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li className="p-4 border-b border-gray-200">
-              <Link
-                to="/jobs"
-                onClick={handleNav}
-                className="text-gray-600 hover:text-black"
-              >
-                Jobs
-              </Link>
-            </li>
-            <li className="p-4 border-b border-gray-200">
-              <Link
-                to="/browse"
-                onClick={handleNav}
-                className="text-gray-600 hover:text-black"
-              >
-                Browse
-              </Link>
-            </li>
+            {user && (
+              <li className="p-4 border-b border-gray-200">
+                <Link
+                  to="/dashboard"
+                  onClick={handleNav}
+                  className="text-gray-600"
+                >
+                  Dashboard
+                </Link>
+              </li>
+            )}
           </ul>
 
           {!user ? (
@@ -215,7 +199,7 @@ const Navbar = () => {
                 onClick={handleNav}
                 className="w-full flex justify-center"
               >
-                <Button variant="outline" className="border-[#6A38C2]  w-3/4">
+                <Button variant="outline" className="border-[#1248b2]  w-3/4">
                   Sign Up
                 </Button>
               </Link>
@@ -224,7 +208,7 @@ const Navbar = () => {
                 onClick={handleNav}
                 className="w-full flex justify-center"
               >
-                <Button className="bg-[#6A38C2] mt-2 w-3/4">Login</Button>
+                <Button className="bg-[#1248b2] mt-2 w-3/4">Login</Button>
               </Link>
             </div>
           ) : (
@@ -249,7 +233,7 @@ const Navbar = () => {
 
         {navOpen && (
           <div
-            className="fixed inset-0 w-full h-full bg-black bg-opacity-30 z-40"
+            className="fixed inset-0 w-full h-full"
             onClick={handleNav}
           ></div>
         )}

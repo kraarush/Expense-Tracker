@@ -9,9 +9,9 @@ const Footer = () => {
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
         <div className="mb-4 md:mb-0">
           <h2 className="text-2xl font-bold">
-            Opportune<span className="text-[#F83002]">X</span>
+            <span className="text-[#1248b2]">Ex</span>pensio
           </h2>
-          <p className="text-sm">© {year} OpportuneX. All rights reserved.</p>
+          <p className="text-sm">© {year} Expensio</p>
           <p className="text-sm text-gray-700">
             Developed by{" "}
             <a
@@ -25,8 +25,7 @@ const Footer = () => {
 
         <div className="flex space-x-6">
           <a
-            href="https://github.com/kraarush/OpportuneX"
-            target="_blank"
+            href="https://github.com/kraarush/Expense-Tracker"
             rel="noopener noreferrer"
             className="hover:text-gray-500"
           >
