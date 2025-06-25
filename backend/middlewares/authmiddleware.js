@@ -1,19 +1,18 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user.model.js';
+import User from '../model/user.model.js';
 
 const authMiddleware = async (req, res, next) => {
-    try {
-        const token = req.cookies.token;
+    try {        
+        const userToken = req.cookies.token;
 
-
-        if (!token) {
+        if (!userToken) {
             return res.status(401).json({
                 message: "User not authenticated / Logged-In",
                 success: false,
             });
         }
 
-        const decode = jwt.verify(token, process.env.SECRET_KEY);
+        const decode = jwt.verify(userToken, process.env.SECRET_KEY);
         const user = await User.findById(decode.userId);
 
         if (!user) {
@@ -28,7 +27,7 @@ const authMiddleware = async (req, res, next) => {
 
     } catch (error) {
         return res.status(500).json({
-            messgae: "Internal server error in authMiddleware, " + error.message,
+            message: "Internal server error in authMiddleware, " + error.message,
             success: false,
         });
     }
