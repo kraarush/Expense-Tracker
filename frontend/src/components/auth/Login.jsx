@@ -43,6 +43,8 @@ const Login = () => {
       return;
     }
 
+    console.log(`${USER_API_END_POINT}/login`);
+
     try {
       dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/login`, formData, {
@@ -55,7 +57,7 @@ const Login = () => {
       if (res.data?.success) {
         dispatch(setUser(res.data.user));
         toast.success(res.data.message);
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

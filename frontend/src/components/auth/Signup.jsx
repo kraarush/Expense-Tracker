@@ -48,22 +48,18 @@ const Signup = () => {
       return;
     }
 
-    const userData = new FormData();
-    userData.append("fullname", formData.fullname);
-    userData.append("email", formData.email);
-    userData.append("password", formData.password);
-    userData.append("phoneNumber", formData.phoneNumber);
-    userData.append("role", formData.role);
-    if (formData.file) {
-      userData.append("file", formData.file);
-    }
+    const userData = {
+      fullname: formData.fullname,
+      email: formData.email,
+      password: formData.password,
+    };
 
     try {
       dispatch(setLoading(true));
+
+      console.log(`${USER_API_END_POINT}/register`);
+
       const res = await axios.post(`${USER_API_END_POINT}/register`, userData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         withCredentials: true,
       });
 
@@ -90,11 +86,6 @@ const Signup = () => {
       newErrors.email = "Invalid email format";
     else newErrors.email = "";
 
-    if (!formData.phoneNumber) newErrors.phoneNumber = "Number is required";
-    else if (!/^\+?[1-9][0-9]{9,14}$/.test(formData.phoneNumber)) {
-      newErrors.phoneNumber = "Enter a valid phone number";
-    } else newErrors.phoneNumber = "";
-
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else {
@@ -119,9 +110,6 @@ const Signup = () => {
     } else {
       newErrors.confirmPassword = "";
     }
-
-    if (!formData.role) newErrors.role = "Role is required";
-    else newErrors.role = "";
 
     setErrors(newErrors);
 

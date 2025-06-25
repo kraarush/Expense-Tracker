@@ -6,9 +6,11 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Button } from "../ui/button";
 import { LogOut, User } from "lucide-react";
 import { toast } from "sonner";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar } from "@radix-ui/react-avatar";
 import { Popover, PopoverContent } from "../ui/popover";
 import { PopoverTrigger } from "@radix-ui/react-popover";
+import { USER_API_END_POINT } from "@/utils/api";
+import { setUser } from "@/redux/authSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const Navbar = () => {
       toast.success("You have been logged out successfully!!");
       navigate("/");
     } catch (error) {
-      toast.error("Failed to log out. Please try again.");
+      toast.error("Failed to logout try again later");
     }
   };
 
@@ -222,7 +224,10 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/logout"
-                onClick={handleNav}
+                onClick={() => {
+                  logout();
+                  handleNav();
+                }}
                 className="text-gray-600 p-4 hover:bg-gray-100"
               >
                 Logout
