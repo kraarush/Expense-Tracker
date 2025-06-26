@@ -136,3 +136,29 @@ export const deleteExpense = async (req, res) => {
     });
   }
 };
+
+export const getExpenseById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const expense = await Expense.findById(id);
+
+    if (!expense) {
+      return res.status(404).json({
+        success: false,
+        message: "Expense not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      expense,
+    });
+  } catch (err) {
+    console.error("Error in getExpenseById:", err.message);
+    res.status(500).json({
+      success: false,
+      error: "Internal server error in getExpenseById controller",
+    });
+  }
+};
