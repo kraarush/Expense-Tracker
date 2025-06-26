@@ -2,6 +2,8 @@
 
 🔗 **Live Demo**: [Expensio Website](https://exprensio.netlify.app/)
 
+🔗 **Backend Api Docs**: [deployed link](https://expense-tracker-tyna.onrender.com/api-docs/)
+
 🧪 **Demo Credentials**:
 
 * **Email**: aarushkumar8585@gmail.com
