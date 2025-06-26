@@ -3,7 +3,7 @@ import validator from 'validator';
 
 export const getAllExpenses = async (req, res) => {
   try {
-    const expenses = await Expense.find().sort({ createdAt: -1 });
+    const expenses = await Expense.find({userId: req.id}).sort({ createdAt: -1 });
 
     return res.status(200).json({
       expenses,
