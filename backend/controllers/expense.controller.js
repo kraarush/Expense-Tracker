@@ -3,7 +3,7 @@ import validator from 'validator';
 
 export const getAllExpenses = async (req, res) => {
   try {
-    const expenses = await Expense.find({userId: req.id}).sort({ createdAt: -1 });
+    const expenses = await Expense.find({ userId: req.id }).sort({ createdAt: -1 });
 
     return res.status(200).json({
       expenses,
@@ -76,12 +76,12 @@ export const updateExpense = async (req, res) => {
       });
     }
 
-    if(amount !== undefined) {
+    if (amount !== undefined) {
       const parsedAmount = parseFloat(amount);
       if (isNaN(parsedAmount) || parsedAmount <= 0) {
-        return res.status(400).json({ 
-          success:false, 
-          message: "Invalid amount" 
+        return res.status(400).json({
+          success: false,
+          message: "Invalid amount"
         });
       }
       amount = parsedAmount;
@@ -106,7 +106,7 @@ export const updateExpense = async (req, res) => {
   catch (err) {
     console.log(err.message);
     res.status(500).json({
-      error: 'Internal server error in updateExpense controller ' +  err.message,
+      error: 'Internal server error in updateExpense controller ' + err.message,
       success: false
     });
   }
@@ -159,6 +159,86 @@ export const getExpenseById = async (req, res) => {
     res.status(500).json({
       success: false,
       error: "Internal server error in getExpenseById controller",
+    });
+  }
+};
+
+
+export const summaryByCategory = async (req, res) => {
+  try {
+
+    const userId = req.id;
+
+    const summary = await Expense.aggregate([
+      { $match: { userId } },
+      {
+        $group: {
+          _id: '$category',
+          total: { $sum: '$amount' },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          category: '$_id',
+          total: 1
+        }
+      }
+    ]);
+
+    const totalMoney = summary.reduce((acc, item) => acc + item.total, 0);
+
+    return res.status(200).json({
+      success: true,
+      summary,
+      totalMoney
+    });
+
+  } catch (err) {
+    console.error("Error in summaryByCategory:", err.message);
+    res.status(500).json({
+      success: false,
+      error: "Internal server error in summaryByCategory controller",
+    });
+  }
+}
+
+
+export const summaryByMonth = async (req, res) => {
+  try {
+    const userId = req.id;
+
+    const summaryRaw = await Expense.aggregate([
+      { $match: { userId } },
+      {
+        $group: {
+          _id: { month: { $month: '$date' } },
+          total: { $sum: '$amount' },
+        },
+      },
+      { $sort: { '_id.month': 1 } }
+    ]);
+
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const summary = summaryRaw.map(item => ({
+      month: monthNames[item._id.month - 1],
+      total: item.total
+    }));
+
+    return res.status(200).json({
+      success: true,
+      summary
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error in summaryByMonth controller'
     });
   }
 };
