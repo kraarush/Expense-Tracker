@@ -229,9 +229,13 @@ export const summaryByMonth = async (req, res) => {
       total: item.total
     }));
 
+    const totalMoney = summary.reduce((acc, item) => acc + item.total, 0);
+
+
     return res.status(200).json({
       success: true,
-      summary
+      summary,
+      totalMoney
     });
 
   } catch (err) {
