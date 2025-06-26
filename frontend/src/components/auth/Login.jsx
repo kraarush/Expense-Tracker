@@ -43,8 +43,6 @@ const Login = () => {
       return;
     }
 
-    console.log(`${USER_API_END_POINT}/login`);
-
     try {
       dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/login`, formData, {
@@ -158,7 +156,10 @@ const Login = () => {
               Please wait
             </Button>
           ) : (
-            <Button className="w-full my-2 bg-[#1248b2] hover:bg-blue-700" type="submit">
+            <Button
+              className="w-full my-2 bg-[#1248b2] hover:bg-blue-700"
+              type="submit"
+            >
               Login
             </Button>
           )}
