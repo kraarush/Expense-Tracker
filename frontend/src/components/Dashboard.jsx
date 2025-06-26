@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaPlus,
@@ -11,22 +11,40 @@ import { LogOut, Home } from "lucide-react";
 import DashboardCard from "./shared/DashboardCard";
 import Charts from "./Charts";
 import ExpenseTable from "./Expensetable";
-import { EXPENSE_API_END_POINT } from "@/utils/api";
+import { EXPENSE_API_END_POINT, USER_API_END_POINT } from "@/utils/api";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
+import { setUser } from "@/redux/authSlice";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const [totalExpense, setTotalExpense] = useState(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const logout = async () => {
+    try {
+      dispatch(setUser(null));
+      await axios.get(`${USER_API_END_POINT}/logout`, {
+        withCredentials: true,
+      });
+      toast.success("You have been logged out successfully!!");
+      navigate("/");
+    } catch (error) {
+      toast.error("Failed to logout, try again later");
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const categoryRes = await axios.get(
-          `${EXPENSE_API_END_POINT}/category`,{withCredentials:true}
+          `${EXPENSE_API_END_POINT}/category`,
+          { withCredentials: true }
         );
         setTotalExpense(categoryRes.data.totalMoney);
-
       } catch (err) {
         console.log("Error while getting chart data", err.message);
       }
@@ -39,7 +57,7 @@ const Dashboard = () => {
     { to: "/dashboard", icon: <FaTachometerAlt />, label: "Dashboard" },
     { to: "/add-expense", icon: <FaPlus />, label: "Add Expense" },
     { to: "/all-expense", icon: <FaChartBar />, label: "All Expenses" },
-    { to: "/logout", icon: <LogOut />, label: "Logout" },
+    { onClick: logout, icon: <LogOut />, label: "Logout" }, // ✅ modified
     { to: "/", icon: <Home size={20} />, label: "Home Page" },
   ];
 
@@ -50,11 +68,26 @@ const Dashboard = () => {
           <span className="text-[#1248b2]">Ex</span>pensio
         </div>
         <nav className="space-y-4 text-gray-700 font-medium">
-          {navLinks.map(({ to, icon, label }) => (
-            <Link key={to} to={to} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
-              {icon} {label}
-            </Link>
-          ))}
+          {navLinks.map(({ to, onClick, icon, label }) =>
+            to ? (
+              <Link
+                key={label}
+                to={to}
+                onClick={() => setSidebarOpen(false)}
+                className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100"
+              >
+                {icon} {label}
+              </Link>
+            ) : (
+              <button
+                key={label}
+                onClick={onClick}
+                className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 w-full text-left"
+              >
+                {icon} {label}
+              </button>
+            )
+          )}
         </nav>
       </aside>
 
@@ -66,22 +99,35 @@ const Dashboard = () => {
           />
           <aside className="fixed top-0 left-0 w-90 h-full bg-white z-50 shadow-md px-6 py-5 text-2xl">
             <div className="flex justify-end mb-4">
-              <FaTimes onClick={() => setSidebarOpen(false)} className="cursor-pointer" />
+              <FaTimes
+                onClick={() => setSidebarOpen(false)}
+                className="cursor-pointer"
+              />
             </div>
             <div className="text-3xl font-bold mb-8">
               <span className="text-[#1248b2]">Ex</span>pensio
             </div>
             <nav className="space-y-4 text-gray-700 font-medium">
-              {navLinks.map(({ to, icon, label }) => (
-                <Link
-                  key={to}
-                  to={to}
-                  onClick={() => setSidebarOpen(false)}
-                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100"
-                >
-                  {icon} {label}
-                </Link>
-              ))}
+              {navLinks.map(({ to, onClick, icon, label }) =>
+                to ? (
+                  <Link
+                    key={label}
+                    to={to}
+                    onClick={() => setSidebarOpen(false)}
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100"
+                  >
+                    {icon} {label}
+                  </Link>
+                ) : (
+                  <button
+                    key={label}
+                    onClick={onClick}
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 w-full text-left"
+                  >
+                    {icon} {label}
+                  </button>
+                )
+              )}
             </nav>
           </aside>
         </>
@@ -117,7 +163,7 @@ const Dashboard = () => {
             <DashboardCard
               link="https://img.icons8.com/?size=100&id=13013&format=png&color=000000"
               name="Balance"
-              value={50000-totalExpense}
+              value={50000 - totalExpense}
             />
           </div>
 
