@@ -36,7 +36,7 @@ const ExpenseTable = () => {
   return (
     <div className="my-4 overflow-x-auto">
       <Table>
-        <TableCaption>Recent Expenses</TableCaption>
+        <TableCaption>Recent 5 Expenses</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Date</TableHead>

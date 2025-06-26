@@ -15,9 +15,8 @@ import ExpenseTable from "./Expensetable";
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="">
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
@@ -26,7 +25,7 @@ const Dashboard = () => {
       )}
 
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-white border-r shadow-lg z-50 transform transition-transform duration-300 ease-in-out
+        className={`fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 shadow-lg z-50 transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} 
         lg:translate-x-0 lg:static lg:shadow-none`}
       >
@@ -38,8 +37,10 @@ const Dashboard = () => {
             <FaTimes size={20} />
           </button>
         </div>
+      </aside>
 
-        <div className="px-6 pb-6">
+      <div className="grid grid-cols-5 my-6">
+        <div className="px-6 pb-6 h-full border-r border-gray-300 my-5">
           <div className="text-3xl font-bold mb-8">
             <span className="text-[#1248b2]">Ex</span>pensio
           </div>
@@ -75,54 +76,54 @@ const Dashboard = () => {
             </Link>
           </nav>
         </div>
-      </aside>
 
-      <main className="lg:ml-64 min-h-screen">
-        <header className="bg-white border-b px-4 sm:px-6 py-4 flex justify-between items-center sticky top-0 z-30">
-          <div className="flex items-center gap-4">
-            <button
-              className="lg:hidden text-2xl text-gray-700 hover:text-gray-900"
-              onClick={() => setSidebarOpen(true)}
-            >
-              <FaBars />
-            </button>
-            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">
-              Dashboard
-            </h1>
-          </div>
-        </header>
+        <main className="min-h-screen col-span-4">
+          <header className="bg-white border-b px-4 sm:px-6 py-4 flex justify-between items-center sticky top-0 z-30">
+            <div className="flex items-center gap-4">
+              <button
+                className="lg:hidden text-2xl text-gray-700 hover:text-gray-900"
+                onClick={() => setSidebarOpen(true)}
+              >
+                <FaBars />
+              </button>
+              <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">
+                Dashboard
+              </h1>
+            </div>
+          </header>
 
-        <div className="p-4 sm:p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-            <DashboardCard
-              link={
-                "https://img.icons8.com/?size=100&id=37128&format=png&color=000000"
-              }
-              name={"Total Income"}
-              value={50000}
-            />
-            <DashboardCard
-              link={
-                "https://img.icons8.com/?size=100&id=7991&format=png&color=000000"
-              }
-              name={"Total Expenses"}
-              value={30000}
-            />
-            <DashboardCard
-              link={
-                "https://img.icons8.com/?size=100&id=13013&format=png&color=000000"
-              }
-              name={"Balance"}
-              value={20000}
-            />
-          </div>
+          <div className="p-4 sm:p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <DashboardCard
+                link={
+                  "https://img.icons8.com/?size=100&id=37128&format=png&color=000000"
+                }
+                name={"Total Income"}
+                value={50000}
+              />
+              <DashboardCard
+                link={
+                  "https://img.icons8.com/?size=100&id=7991&format=png&color=000000"
+                }
+                name={"Total Expenses"}
+                value={30000}
+              />
+              <DashboardCard
+                link={
+                  "https://img.icons8.com/?size=100&id=13013&format=png&color=000000"
+                }
+                name={"Balance"}
+                value={20000}
+              />
+            </div>
 
-          <div className="space-y-6">
-            <Charts />
-            <ExpenseTable />
+            <div className="space-y-6">
+              <Charts />
+              <ExpenseTable />
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };
