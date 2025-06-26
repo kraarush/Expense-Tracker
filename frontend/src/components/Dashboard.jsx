@@ -39,7 +39,7 @@ const Dashboard = () => {
         </div>
       </aside>
 
-      <div className="grid grid-cols-5 my-6">
+      <div className="grid grid-cols-5">
         <div className="px-6 pb-6 h-full border-r border-gray-300 my-5">
           <div className="text-3xl font-bold mb-8">
             <span className="text-[#1248b2]">Ex</span>pensio
@@ -118,8 +118,16 @@ const Dashboard = () => {
             </div>
 
             <div className="space-y-6">
-              <Charts />
-              <ExpenseTable />
+              
+              <div className="flex flex-col gap-6 my-10">
+                <h2 className="font-semibold text-xl">Expense charts</h2>
+                <Charts />
+              </div>
+
+              <div className="my-10">
+                <h2 className="font-semibold text-xl">Recent Expenses</h2>
+                <ExpenseTable />
+              </div>
             </div>
           </div>
         </main>
