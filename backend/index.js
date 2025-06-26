@@ -5,6 +5,9 @@ import userRoutes from "./routes/user.route.js";
 import expenseRoutes from "./routes/expense.route.js";
 import connectDB from './utils/db.js';
 import cookieParser from 'cookie-parser';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger-output.json' assert { type: 'json' };
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +29,10 @@ app.use(cors(corsOption));
 // routes
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/expenses', expenseRoutes);
+
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.listen(PORT, async() => {
     await connectDB();
