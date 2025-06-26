@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaTachometerAlt,
@@ -7,18 +7,39 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
-import { Home } from "lucide-react";
+import { LogOut, Home } from "lucide-react";
 import DashboardCard from "./shared/DashboardCard";
 import Charts from "./Charts";
 import ExpenseTable from "./Expensetable";
+import { EXPENSE_API_END_POINT } from "@/utils/api";
+import axios from "axios";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const [totalExpense, setTotalExpense] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const categoryRes = await axios.get(
+          `${EXPENSE_API_END_POINT}/category`,{withCredentials:true}
+        );
+        setTotalExpense(categoryRes.data.totalMoney);
+
+      } catch (err) {
+        console.log("Error while getting chart data", err.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const navLinks = [
     { to: "/dashboard", icon: <FaTachometerAlt />, label: "Dashboard" },
     { to: "/add-expense", icon: <FaPlus />, label: "Add Expense" },
     { to: "/all-expense", icon: <FaChartBar />, label: "All Expenses" },
+    { to: "/logout", icon: <LogOut />, label: "Logout" },
     { to: "/", icon: <Home size={20} />, label: "Home Page" },
   ];
 
@@ -91,12 +112,12 @@ const Dashboard = () => {
             <DashboardCard
               link="https://img.icons8.com/?size=100&id=7991&format=png&color=000000"
               name="Total Expenses"
-              value={30000}
+              value={totalExpense}
             />
             <DashboardCard
               link="https://img.icons8.com/?size=100&id=13013&format=png&color=000000"
               name="Balance"
-              value={20000}
+              value={50000-totalExpense}
             />
           </div>
 

@@ -30,7 +30,7 @@ const Charts = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <div className="bg-white h-64 rounded-lg shadow flex items-center justify-center min-h-[50vh]">
+      <div className="bg-white h-64 rounded-lg shadow-sm border border-gray-200 flex items-center justify-center min-h-[50vh]">
         {barGraphData ? (
           barGraphData.length > 0 ? (
             <MonthlyBarChart data={barGraphData} />
@@ -44,7 +44,7 @@ const Charts = () => {
           </div>
         )}
       </div>
-      <div className="bg-white h-64 rounded-lg shadow flex items-center justify-center min-h-[50vh]">
+      <div className="bg-white h-64 rounded-lg shadow-sm border border-gray-200 flex items-center justify-center min-h-[50vh]">
         {pieChartData ? (
           pieChartData.length > 0 ? (
             <CategoryPieChart data={pieChartData} />
