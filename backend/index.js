@@ -6,8 +6,9 @@ import expenseRoutes from "./routes/expense.route.js";
 import connectDB from './utils/db.js';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './swagger-output.json' assert { type: 'json' };
 
+import fs from 'fs';
+const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
 
 const app = express();
 const PORT = process.env.PORT || 3000;

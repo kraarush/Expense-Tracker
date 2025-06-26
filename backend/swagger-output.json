@@ -10,7 +10,7 @@
   "tags": [
     {
       "name": "User",
-      "description": "APIs related to user authentication and session"
+      "description": "APIs related to user authentication"
     },
     {
       "name": "Expenses",
