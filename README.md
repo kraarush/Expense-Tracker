@@ -2,6 +2,11 @@
 
 🔗 **Live Demo**: [Expensio Website](https://exprensio.netlify.app/)
 
+🧪 **Demo Credentials**:
+
+* **Email**: aarushkumar8585@gmail.com
+* **Password**: aarushAa@
+
 Expensio is a **full-stack expense management application** developed using the **MERN stack**. It empowers users to track their incomes, expenses, and visualize spending patterns with interactive charts. Built with modern UI using **ShadCN** and **TailwindCSS**, Expensio is simple, secure, and user-friendly.
 
 
