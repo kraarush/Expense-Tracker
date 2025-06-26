@@ -2,6 +2,8 @@ import React from 'react'
 import Navbar from './shared/Navbar'
 import Footer from './shared/Footer'
 import Herosection from './Herosection'
+import Features from './Features'
+import Discover from './Discover'
 
 const Home = () => {
 
@@ -9,6 +11,8 @@ const Home = () => {
     <div>
       <Navbar/>
       <Herosection/>
+      <Features/>
+      <Discover/>
       <Footer/>
     </div>
   )
