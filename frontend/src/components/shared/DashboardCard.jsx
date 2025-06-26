@@ -2,7 +2,7 @@ import React from "react";
 
 const DashboardCard = ({ link, name, value }) => {
   return (
-    <div className="flex flex-col lg:flex-row max-w-[300px] bg-white py-6 px-8 rounded-lg shadow gap-3 border items-center justify-around">
+    <div className="w-full flex flex-col lg:flex-row max-w-sm bg-white py-6 px-8 rounded-lg shadow gap-3 border items-center justify-around">
       <div className="w-15">
         <img src={link} alt="cardImage" />
       </div>
