@@ -93,11 +93,7 @@ const Login = () => {
   return (
     <div>
       <Navbar />
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div>
-          {/* <img src="/login.svg" alt="" /> */}
-        </div>
-        <div className="flex items-center justify-center md:max-w-5xl sm:max-w-4xl mx-auto my-16 ">
+      <div className="flex items-center justify-center md:max-w-5xl sm:max-w-4xl mx-auto my-16 ">
           <form
             onSubmit={handleSubmit}
             className=" w-4/5 md:w-1/2 border border-gray-200 rounded-md p-6 "
@@ -177,7 +173,6 @@ const Login = () => {
             </div>
           </form>
         </div>
-      </div>
     </div>
   );
 };
