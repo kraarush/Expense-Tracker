@@ -93,85 +93,90 @@ const Login = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center md:max-w-5xl sm:max-w-4xl mx-auto my-16 ">
-        <form
-          onSubmit={handleSubmit}
-          className=" w-4/5 md:w-1/2 border border-gray-200 rounded-md p-6 "
-          noValidate
-        >
-          <h1 className="font-bold md:text-3xl sm:text-2xl text-xl mb-5 text-[#1248b2]">
-            {" "}
-            Login
-          </h1>
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div>
+          {/* <img src="/login.svg" alt="" /> */}
+        </div>
+        <div className="flex items-center justify-center md:max-w-5xl sm:max-w-4xl mx-auto my-16 ">
+          <form
+            onSubmit={handleSubmit}
+            className=" w-4/5 md:w-1/2 border border-gray-200 rounded-md p-6 "
+            noValidate
+          >
+            <h1 className="font-bold md:text-3xl sm:text-2xl text-xl mb-5 text-[#1248b2]">
+              {" "}
+              Login
+            </h1>
 
-          <div className="my-4">
-            <Label>
-              Email<span className="text-red-500 ml-1">*</span>
-            </Label>
-            <Input
-              type="email"
-              placeholder="user@gmail.com"
-              name="email"
-              onChange={changeEventHandler}
-              value={formData.email}
-              className="placeholder:text-sm md:placeholder:text-base"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm my-1 mx-2">{errors.email}</p>
-            )}
-          </div>
-
-          <div className="mb-6">
-            <Label>
-              Password<span className="text-red-500 ml-1">*</span>
-            </Label>
-            <div className="relative">
+            <div className="my-4">
+              <Label>
+                Email<span className="text-red-500 ml-1">*</span>
+              </Label>
               <Input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                name="password"
+                type="email"
+                placeholder="user@gmail.com"
+                name="email"
                 onChange={changeEventHandler}
-                value={formData.password}
-                className="placeholder:text-sm md:placeholder:text-base pr-10"
+                value={formData.email}
+                className="placeholder:text-sm md:placeholder:text-base"
               />
-              {formData.password && (
-                <div
-                  className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
-                  onClick={togglePasswordVisibility}
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </div>
+              {errors.email && (
+                <p className="text-red-500 text-sm my-1 mx-2">{errors.email}</p>
               )}
             </div>
-            {errors.password && (
-              <p className="text-red-500 text-sm my-1 mx-2">
-                {errors.password}
-              </p>
+
+            <div className="mb-6">
+              <Label>
+                Password<span className="text-red-500 ml-1">*</span>
+              </Label>
+              <div className="relative">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  name="password"
+                  onChange={changeEventHandler}
+                  value={formData.password}
+                  className="placeholder:text-sm md:placeholder:text-base pr-10"
+                />
+                {formData.password && (
+                  <div
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </div>
+                )}
+              </div>
+              {errors.password && (
+                <p className="text-red-500 text-sm my-1 mx-2">
+                  {errors.password}
+                </p>
+              )}
+            </div>
+
+            {loading ? (
+              <Button className="w-full my-2 bg-blue-700 hover:bg-blue-600">
+                <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                Please wait
+              </Button>
+            ) : (
+              <Button
+                className="w-full my-2 bg-[#1248b2] hover:bg-blue-700"
+                type="submit"
+              >
+                Login
+              </Button>
             )}
-          </div>
 
-          {loading ? (
-            <Button className="w-full my-2 bg-blue-700 hover:bg-blue-600">
-              <Loader2 className="mr-2 w-4 h-4 animate-spin" />
-              Please wait
-            </Button>
-          ) : (
-            <Button
-              className="w-full my-2 bg-[#1248b2] hover:bg-blue-700"
-              type="submit"
-            >
-              Login
-            </Button>
-          )}
-
-          <div className="text-sm pt-4">
-            Don't have an account ?
-            <Link to="/signup" className="text-blue-900">
-              {" "}
-              Sign Up{" "}
-            </Link>
-          </div>
-        </form>
+            <div className="text-sm pt-4">
+              Don't have an account ?
+              <Link to="/signup" className="text-blue-900">
+                {" "}
+                Sign Up{" "}
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

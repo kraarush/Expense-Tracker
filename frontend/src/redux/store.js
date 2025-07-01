@@ -4,7 +4,6 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from 'redux-persist/lib/storage'
 import authSlice from './authSlice.js'
 
-// combine reducers
 const rootReducer = combineReducers({
   auth: authSlice,
 })
